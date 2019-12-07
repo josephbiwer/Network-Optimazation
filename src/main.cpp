@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../include/Node.h"
 #include "../include/Graph.h"
+#include "../include/Network.h"
 
 int main(int argc, char **argv) {
    
@@ -19,6 +20,12 @@ int main(int argc, char **argv) {
 	Graph g;
 	g.add_point(n);
 	g.print();
+
+	Network network(
+		g,
+		(Network::Dimensions){.x = 10, .y = 10},
+		(Network::Bounds){.x = 120, .y = 120}
+	);
 
    return 0;
 }
