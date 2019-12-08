@@ -14,12 +14,30 @@
 class Node {
 	public:
 
+		typedef struct {
+			int x, y;
+		} Position; ///< Position of a Node in 2D space
+
 		/**
 		 * @brief Constructor that initializes the node
 		 * @param id Unique identifier for the Node
 		 * @return none
 		 */
 		Node(int);
+	
+
+		/**
+		 * @brief Set position of the node
+		 * @param pos Position of the node
+		 * @return none
+		 */
+		void set_position(Position);
+
+		/**
+		 * @brief Get the position of the node
+		 * @return Position of the node
+		 */
+		Node::Position get_position();
 
 		/**
 		 * @brief Make a connection to another Node
@@ -37,6 +55,18 @@ class Node {
 		int disconnect(int);
 
 		/**
+		 * @brief Set node as a station
+		 * @return none
+		 */
+		void set_station();
+
+		/**
+		 * @brief Returns a bool dependent on whether or not the node is a station
+		 * @return Returns true if the node is a station, false otherwise
+		 */
+		bool is_station();
+
+		/**
 		 * @brief Print out information about Node
 		 * @return none
 		 */
@@ -49,8 +79,10 @@ class Node {
 			int distance;
 		} Connection; ///< Connection to another node that holds the index that the node is connected to, as well as the distance from the current Node to the specified Node
 
+		Position pos;
 		std::vector<Connection> connections;
 		int id;
+		bool station;
 
 };
 

@@ -37,6 +37,18 @@ class Network {
 		 */
 		void set_dimensions(Dimension);
 
+		/**
+		 * @brief Construct the network by adding nodes to the graph where it is warranted (stations for cells)
+		 * @return none
+		 */
+		void construct();
+
+		/**
+		 * @brief Print all relevant information about the network
+		 * @return none
+		 */
+		void print();
+
 	private:
 
 		Bounds bounds;

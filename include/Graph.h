@@ -28,6 +28,19 @@ class Graph {
 		void add_point(Node);
 
 		/**
+		 * @brief Get node from the nodes vector, specified by array index
+		 * @param index Index of the node in the nodes vector
+		 * @return Specified node (as pointer)
+		 */
+		Node* get_node(int);
+
+		/**
+		 * @brief Get the size of the graph
+		 * @return Size of the graph
+		 */
+		int size();
+
+		/**
 		 * @brief Print the information about the graph to the terminal
 		 * @return none
 		 */

@@ -10,11 +10,21 @@
 #include <iostream>
 
 Graph::Graph() {
-	std::cout << "Creating graph\n";	
+
 }
 
 void Graph::add_point(Node node) {
 	nodes.push_back(node);
+}
+
+int Graph::size() {
+	return nodes.size();
+}
+
+Node* Graph::get_node(int index) {
+	if(index < nodes.size())
+		return &nodes[index];
+	return NULL;
 }
 
 void Graph::print() {
