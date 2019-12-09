@@ -7,6 +7,7 @@
 
 #include "../include/Node.h"
 #include <iostream>
+#include <math.h>
 
 Node::Node(int _id) {
 	pos.x = pos.y = 1;
@@ -14,9 +15,22 @@ Node::Node(int _id) {
 	station = false;
 }
 
-void Node::connect(int index, int distance) {
+void Node::connect(int index, Node n) {
 	Connection conn;
 	conn.index = index;
+
+	std::cout << "from: (" << pos.x << ", " << pos.y << ")\n";
+	std::cout << "to: (" << n.pos.x << ", " << n.pos.y << ")\n";
+
+	// Calculate distance
+	float distance;
+	float x = pow(n.pos.x - pos.x, 2);
+	float y = pow(n.pos.y - pos.y, 2);
+
+	distance = sqrt(x + y);
+
+	std::cout << "distance: " << distance << std::endl;
+
 	conn.distance = distance;
 	connections.push_back(conn);	
 }

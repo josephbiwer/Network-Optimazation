@@ -13,6 +13,8 @@
 class Network {
 	public:
 
+		Graph graph;
+
 		typedef struct {
 			int x, y;
 		} Dimension; ///< Dimensions of the cell architecture. The number of cells in the network will be x*y
@@ -53,7 +55,6 @@ class Network {
 
 		Bounds bounds;
 		Dimension dims;
-		Graph graph;
 
 };
 

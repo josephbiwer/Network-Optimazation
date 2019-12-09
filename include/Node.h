@@ -12,11 +12,25 @@
 #include <vector>
 
 class Node {
+
+	private:
+		
+		typedef struct {
+			int index;
+			float distance;
+		} Connection; ///< Connection to another node that holds the index that the node is connected to, as well as the distance from the current Node to the specified Node
+
+		int id;
+
 	public:
 
 		typedef struct {
 			int x, y;
 		} Position; ///< Position of a Node in 2D space
+
+		Position pos;
+		std::vector<Node::Connection> connections;
+		bool station;
 
 		/**
 		 * @brief Constructor that initializes the node
@@ -45,7 +59,7 @@ class Node {
 		 * @param distance Distance of the connection
 		 * @return none
 		 */
-		void connect(int, int);
+		void connect(int, Node);
 
 		/**
 		 * @brief Disconnect the current node from a specified node
@@ -71,18 +85,6 @@ class Node {
 		 * @return none
 		 */
 		void print();
-
-	private:
-		
-		typedef struct {
-			int index;
-			int distance;
-		} Connection; ///< Connection to another node that holds the index that the node is connected to, as well as the distance from the current Node to the specified Node
-
-		Position pos;
-		std::vector<Connection> connections;
-		int id;
-		bool station;
 
 };
 

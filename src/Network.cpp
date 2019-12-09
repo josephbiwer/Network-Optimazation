@@ -43,6 +43,7 @@ void Network::construct() {
 		}
 	}
 
+	// Connecting Station nodes to nodes inside of corresponding cells
 	for(int i = 0; i < graph.size(); i++) {
 		Node *n = graph.get_node(i); 											// Get child node
 		if(n != NULL)
@@ -53,8 +54,7 @@ void Network::construct() {
 				
 				for(int j = 0; j < graph.size(); j++) { 					// Loop through all of the nodes to try and find the corresponding cell
 					Node *par = graph.get_node(j);
-					if(par != NULL) {
-						par->print();
+					if(par != NULL)
 						if(par->is_station()) { 								// If the node is a station
 							Node::Position parPos = par->get_position(); // Obtain position of node
 							int parX = parPos.x / (G_DIMS_X / dims.x); 	// If a station, find it's cell indexes
@@ -64,10 +64,63 @@ void Network::construct() {
 							//std::cout << " par: (" << parX << ", " << parY << std::endl;
 
 							if(xIndex == parX && yIndex == parY) 			// If the indexes align, connect the node to the station
-								par->connect(i, 4);
+								par->connect(i, *n);
 						}
-					}
 				}
+			}
+	}
+
+	int midX = NET_DIMS_X / 2;
+	int midY = NET_DIMS_Y / 2;
+
+	std::cout << " *** midX: " << midX << ", midY: " << midY << std::endl;
+
+	// Connecting statiosn together to lead towards center
+	for(int i = 0; i < graph.size(); i++) {
+		Node *n = graph.get_node(i); 											// Get child node
+		if(n != NULL)
+			if(n->is_station()) {
+				Node::Position pos = n->get_position(); 					// Get position of child node
+				int xIndex = pos.x / (G_DIMS_X / dims.x); 				// Get x and y index of it's corresponding cell
+				int yIndex = pos.y / (G_DIMS_Y / dims.y);
+
+				std::cout << " Station position: (" << pos.x << ", " << pos.y << ")\n";
+
+				int targetX, targetY;
+
+				if(xIndex < midX)
+					targetX = xIndex + 1;
+				else if(xIndex > midX)
+					targetX = xIndex - 1;
+				else
+					targetX = xIndex;
+
+				if(yIndex < midY)
+					targetY = yIndex + 1;
+				else if(yIndex > midY)
+					targetY = yIndex - 1;
+				else
+					targetY = yIndex;
+
+				std::cout << " 		target: (" << targetX << ", " << targetY << ")\n";
+				
+				if(targetY != yIndex || targetX != xIndex)
+					for(int j = 0; j < graph.size(); j++) { 					// Loop through all of the nodes to try and find the corresponding cell
+						Node *par = graph.get_node(j);
+						if(par != NULL)
+							if(par->is_station()) { 								// If the node is a station
+								Node::Position parPos = par->get_position(); // Obtain position of node
+								int parX = parPos.x / (G_DIMS_X / dims.x); 	// If a station, find it's cell indexes
+								int parY = parPos.y / (G_DIMS_Y / dims.y);
+
+								std::cout << " Par station position: (" << parX << ", " << parY << ")\n";	
+								if(targetY == parY && targetX == parX) {
+									par->connect(i, *n);
+									std::cout << " Made connection!\n";
+									break;
+								}
+							}
+					}
 			}
 	}
 
